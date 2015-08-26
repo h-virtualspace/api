@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.UserSysSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.UserSysSetting" >
+    <id column="pk_user" property="pkUser" jdbcType="CHAR" />
+    <result column="font_size" property="fontSize" jdbcType="SMALLINT" />
+    <result column="wifi_setting" property="wifiSetting" jdbcType="SMALLINT" />
+    <result column="push_message" property="pushMessage" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.virtualspace.database.model.UserSysSetting" extends="BaseResultMap" >
+    <result column="offline_list" property="offlineList" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_user, font_size, wifi_setting, push_message
+  </sql>
+  <sql id="Blob_Column_List" >
+    offline_list
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_sys_setting
+    where pk_user = #{pkUser,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_sys_setting
+    where pk_user = #{pkUser,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.UserSysSetting" >
+    insert into user_sys_setting (pk_user, font_size, wifi_setting, 
+      push_message, offline_list)
+    values (#{pkUser,jdbcType=CHAR}, #{fontSize,jdbcType=SMALLINT}, #{wifiSetting,jdbcType=SMALLINT}, 
+      #{pushMessage,jdbcType=BIT}, #{offlineList,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.UserSysSetting" >
+    insert into user_sys_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkUser != null" >
+        pk_user,
+      </if>
+      <if test="fontSize != null" >
+        font_size,
+      </if>
+      <if test="wifiSetting != null" >
+        wifi_setting,
+      </if>
+      <if test="pushMessage != null" >
+        push_message,
+      </if>
+      <if test="offlineList != null" >
+        offline_list,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkUser != null" >
+        #{pkUser,jdbcType=CHAR},
+      </if>
+      <if test="fontSize != null" >
+        #{fontSize,jdbcType=SMALLINT},
+      </if>
+      <if test="wifiSetting != null" >
+        #{wifiSetting,jdbcType=SMALLINT},
+      </if>
+      <if test="pushMessage != null" >
+        #{pushMessage,jdbcType=BIT},
+      </if>
+      <if test="offlineList != null" >
+        #{offlineList,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.UserSysSetting" >
+    update user_sys_setting
+    <set >
+      <if test="fontSize != null" >
+        font_size = #{fontSize,jdbcType=SMALLINT},
+      </if>
+      <if test="wifiSetting != null" >
+        wifi_setting = #{wifiSetting,jdbcType=SMALLINT},
+      </if>
+      <if test="pushMessage != null" >
+        push_message = #{pushMessage,jdbcType=BIT},
+      </if>
+      <if test="offlineList != null" >
+        offline_list = #{offlineList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pk_user = #{pkUser,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.virtualspace.database.model.UserSysSetting" >
+    update user_sys_setting
+    set font_size = #{fontSize,jdbcType=SMALLINT},
+      wifi_setting = #{wifiSetting,jdbcType=SMALLINT},
+      push_message = #{pushMessage,jdbcType=BIT},
+      offline_list = #{offlineList,jdbcType=LONGVARCHAR}
+    where pk_user = #{pkUser,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.UserSysSetting" >
+    update user_sys_setting
+    set font_size = #{fontSize,jdbcType=SMALLINT},
+      wifi_setting = #{wifiSetting,jdbcType=SMALLINT},
+      push_message = #{pushMessage,jdbcType=BIT}
+    where pk_user = #{pkUser,jdbcType=CHAR}
+  </update>
+</mapper>

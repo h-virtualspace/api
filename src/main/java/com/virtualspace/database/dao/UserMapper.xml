@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.User" >
+    <id column="pk" property="pk" jdbcType="CHAR" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="motto" property="motto" jdbcType="VARCHAR" />
+    <result column="face_url" property="faceUrl" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk, id, password, nick_name, email, motto, face_url, telephone, sex, create_time, 
+    last_login_time, last_modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where pk = #{pk,jdbcType=CHAR}
+  </select>
+  <select id="loginByTelephone" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where telephone = #{telephone,jdbcType=CHAR} and password = #{password,jdbcType=CHAR} limit 1
+  </select>
+   <select id="loginByEmail" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where email = #{email,jdbcType=CHAR} and password = #{password,jdbcType=CHAR} limit 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where pk = #{pk,jdbcType=CHAR}
+  </delete>
+  
+  <select id="isUserExistsByTelephone" parameterType="java.lang.String" resultType="int">
+    select count(*) from user
+    where telephone = #{telephone,jdbcType=CHAR} limit 1
+  </select>
+  
+  <select id="isUserExistsByEmail" parameterType="java.lang.String" resultType="int">
+    select count(*) from user
+    where email = #{email,jdbcType=CHAR} limit 1
+  </select>
+  
+  <insert id="insert" parameterType="com.virtualspace.database.model.User" >
+    insert into user (pk, id, password, 
+      nick_name, email, motto, 
+      face_url, telephone, sex, 
+      create_time, last_login_time, last_modify_time
+      )
+    values (#{pk,jdbcType=CHAR}, #{id,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{motto,jdbcType=VARCHAR}, 
+      #{faceUrl,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        pk,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="motto != null" >
+        motto,
+      </if>
+      <if test="faceUrl != null" >
+        face_url,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        #{pk,jdbcType=CHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="motto != null" >
+        #{motto,jdbcType=VARCHAR},
+      </if>
+      <if test="faceUrl != null" >
+        #{faceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.User" >
+    update user
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="motto != null" >
+        motto = #{motto,jdbcType=VARCHAR},
+      </if>
+      <if test="faceUrl != null" >
+        face_url = #{faceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pk = #{pk,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.User" >
+    update user
+    set id = #{id,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      motto = #{motto,jdbcType=VARCHAR},
+      face_url = #{faceUrl,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where pk = #{pk,jdbcType=CHAR}
+  </update>
+</mapper>

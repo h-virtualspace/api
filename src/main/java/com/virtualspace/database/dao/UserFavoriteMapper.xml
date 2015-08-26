@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.UserFavoriteMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.UserFavorite" >
+    <id column="pk_user" property="pkUser" jdbcType="CHAR" />
+    <id column="target" property="target" jdbcType="VARCHAR" />
+    <result column="favorite_type" property="favoriteType" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_user, target, favorite_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.virtualspace.database.model.UserFavoriteKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_favorite
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and target = #{target,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.virtualspace.database.model.UserFavoriteKey" >
+    delete from user_favorite
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and target = #{target,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.UserFavorite" >
+    insert into user_favorite (pk_user, target, favorite_type
+      )
+    values (#{pkUser,jdbcType=CHAR}, #{target,jdbcType=VARCHAR}, #{favoriteType,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.UserFavorite" >
+    insert into user_favorite
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkUser != null" >
+        pk_user,
+      </if>
+      <if test="target != null" >
+        target,
+      </if>
+      <if test="favoriteType != null" >
+        favorite_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkUser != null" >
+        #{pkUser,jdbcType=CHAR},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="favoriteType != null" >
+        #{favoriteType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.UserFavorite" >
+    update user_favorite
+    <set >
+      <if test="favoriteType != null" >
+        favorite_type = #{favoriteType,jdbcType=CHAR},
+      </if>
+    </set>
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and target = #{target,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.UserFavorite" >
+    update user_favorite
+    set favorite_type = #{favoriteType,jdbcType=CHAR}
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and target = #{target,jdbcType=VARCHAR}
+  </update>
+</mapper>

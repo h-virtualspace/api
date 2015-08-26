@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.StoryActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.StoryActivity" >
+    <id column="pk" property="pk" jdbcType="CHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="SMALLINT" />
+    <result column="all-persons" property="allPersons" jdbcType="TINYINT" />
+    <result column="registered_persons" property="registeredPersons" jdbcType="TINYINT" />
+    <result column="confirm_condition" property="confirmCondition" jdbcType="VARCHAR" />
+    <result column="effective_time" property="effectiveTime" jdbcType="SMALLINT" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk, content, start_time, end_time, address, money, all-persons, registered_persons, 
+    confirm_condition, effective_time, creator, create_time, last_modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from story_activity
+    where pk = #{pk,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from story_activity
+    where pk = #{pk,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.StoryActivity" >
+    insert into story_activity (pk, content, start_time, 
+      end_time, address, money, 
+      all-persons, registered_persons, confirm_condition, 
+      effective_time, creator, create_time, 
+      last_modify_time)
+    values (#{pk,jdbcType=CHAR}, #{content,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, #{money,jdbcType=SMALLINT}, 
+      #{allPersons,jdbcType=TINYINT}, #{registeredPersons,jdbcType=TINYINT}, #{confirmCondition,jdbcType=VARCHAR}, 
+      #{effectiveTime,jdbcType=SMALLINT}, #{creator,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.StoryActivity" >
+    insert into story_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        pk,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="allPersons != null" >
+        all-persons,
+      </if>
+      <if test="registeredPersons != null" >
+        registered_persons,
+      </if>
+      <if test="confirmCondition != null" >
+        confirm_condition,
+      </if>
+      <if test="effectiveTime != null" >
+        effective_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        #{pk,jdbcType=CHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=SMALLINT},
+      </if>
+      <if test="allPersons != null" >
+        #{allPersons,jdbcType=TINYINT},
+      </if>
+      <if test="registeredPersons != null" >
+        #{registeredPersons,jdbcType=TINYINT},
+      </if>
+      <if test="confirmCondition != null" >
+        #{confirmCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveTime != null" >
+        #{effectiveTime,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.StoryActivity" >
+    update story_activity
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=SMALLINT},
+      </if>
+      <if test="allPersons != null" >
+        all-persons = #{allPersons,jdbcType=TINYINT},
+      </if>
+      <if test="registeredPersons != null" >
+        registered_persons = #{registeredPersons,jdbcType=TINYINT},
+      </if>
+      <if test="confirmCondition != null" >
+        confirm_condition = #{confirmCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveTime != null" >
+        effective_time = #{effectiveTime,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pk = #{pk,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.StoryActivity" >
+    update story_activity
+    set content = #{content,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      address = #{address,jdbcType=VARCHAR},
+      money = #{money,jdbcType=SMALLINT},
+      all-persons = #{allPersons,jdbcType=TINYINT},
+      registered_persons = #{registeredPersons,jdbcType=TINYINT},
+      confirm_condition = #{confirmCondition,jdbcType=VARCHAR},
+      effective_time = #{effectiveTime,jdbcType=SMALLINT},
+      creator = #{creator,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where pk = #{pk,jdbcType=CHAR}
+  </update>
+</mapper>

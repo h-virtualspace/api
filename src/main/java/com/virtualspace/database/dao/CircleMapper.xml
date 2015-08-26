@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.CircleMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.Circle" >
+    <id column="pk" property="pk" jdbcType="CHAR" />
+    <id column="creator" property="creator" jdbcType="CHAR" />
+    <id column="name" property="name" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_position" property="createPosition" jdbcType="CHAR" />
+    <result column="last_modify_person" property="lastModifyPerson" jdbcType="CHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk, creator, name, create_time, create_position, last_modify_person, last_modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.virtualspace.database.model.CircleKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from circle
+    where pk = #{pk,jdbcType=CHAR}
+      and creator = #{creator,jdbcType=CHAR}
+      and name = #{name,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.virtualspace.database.model.CircleKey" >
+    delete from circle
+    where pk = #{pk,jdbcType=CHAR}
+      and creator = #{creator,jdbcType=CHAR}
+      and name = #{name,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.Circle" >
+    insert into circle (pk, creator, name, 
+      create_time, create_position, last_modify_person, 
+      last_modify_time)
+    values (#{pk,jdbcType=CHAR}, #{creator,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createPosition,jdbcType=CHAR}, #{lastModifyPerson,jdbcType=CHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.Circle" >
+    insert into circle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        pk,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createPosition != null" >
+        create_position,
+      </if>
+      <if test="lastModifyPerson != null" >
+        last_modify_person,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        #{pk,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createPosition != null" >
+        #{createPosition,jdbcType=CHAR},
+      </if>
+      <if test="lastModifyPerson != null" >
+        #{lastModifyPerson,jdbcType=CHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.Circle" >
+    update circle
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createPosition != null" >
+        create_position = #{createPosition,jdbcType=CHAR},
+      </if>
+      <if test="lastModifyPerson != null" >
+        last_modify_person = #{lastModifyPerson,jdbcType=CHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pk = #{pk,jdbcType=CHAR}
+      and creator = #{creator,jdbcType=CHAR}
+      and name = #{name,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.Circle" >
+    update circle
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_position = #{createPosition,jdbcType=CHAR},
+      last_modify_person = #{lastModifyPerson,jdbcType=CHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where pk = #{pk,jdbcType=CHAR}
+      and creator = #{creator,jdbcType=CHAR}
+      and name = #{name,jdbcType=VARCHAR}
+  </update>
+</mapper>

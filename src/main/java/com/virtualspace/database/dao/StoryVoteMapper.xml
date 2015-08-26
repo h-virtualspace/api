@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.StoryVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.StoryVote" >
+    <id column="pk" property="pk" jdbcType="CHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="max_selected" property="maxSelected" jdbcType="TINYINT" />
+    <result column="is_voted_named" property="isVotedNamed" jdbcType="BIT" />
+    <result column="is_invitation_code" property="isInvitationCode" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk, content, type, max_selected, is_voted_named, is_invitation_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from story_vote
+    where pk = #{pk,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from story_vote
+    where pk = #{pk,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.StoryVote" >
+    insert into story_vote (pk, content, type, 
+      max_selected, is_voted_named, is_invitation_code
+      )
+    values (#{pk,jdbcType=CHAR}, #{content,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{maxSelected,jdbcType=TINYINT}, #{isVotedNamed,jdbcType=BIT}, #{isInvitationCode,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.StoryVote" >
+    insert into story_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        pk,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="maxSelected != null" >
+        max_selected,
+      </if>
+      <if test="isVotedNamed != null" >
+        is_voted_named,
+      </if>
+      <if test="isInvitationCode != null" >
+        is_invitation_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        #{pk,jdbcType=CHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="maxSelected != null" >
+        #{maxSelected,jdbcType=TINYINT},
+      </if>
+      <if test="isVotedNamed != null" >
+        #{isVotedNamed,jdbcType=BIT},
+      </if>
+      <if test="isInvitationCode != null" >
+        #{isInvitationCode,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.StoryVote" >
+    update story_vote
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="maxSelected != null" >
+        max_selected = #{maxSelected,jdbcType=TINYINT},
+      </if>
+      <if test="isVotedNamed != null" >
+        is_voted_named = #{isVotedNamed,jdbcType=BIT},
+      </if>
+      <if test="isInvitationCode != null" >
+        is_invitation_code = #{isInvitationCode,jdbcType=BIT},
+      </if>
+    </set>
+    where pk = #{pk,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.StoryVote" >
+    update story_vote
+    set content = #{content,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      max_selected = #{maxSelected,jdbcType=TINYINT},
+      is_voted_named = #{isVotedNamed,jdbcType=BIT},
+      is_invitation_code = #{isInvitationCode,jdbcType=BIT}
+    where pk = #{pk,jdbcType=CHAR}
+  </update>
+</mapper>

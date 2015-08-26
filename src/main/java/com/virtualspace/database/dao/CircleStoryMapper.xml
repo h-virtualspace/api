@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.CircleStoryMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.CircleStory" >
+    <id column="pk_circle" property="pkCircle" jdbcType="CHAR" />
+    <id column="pk_story" property="pkStory" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_circle, pk_story, create_time, creator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.virtualspace.database.model.CircleStoryKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from circle_story
+    where pk_circle = #{pkCircle,jdbcType=CHAR}
+      and pk_story = #{pkStory,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.virtualspace.database.model.CircleStoryKey" >
+    delete from circle_story
+    where pk_circle = #{pkCircle,jdbcType=CHAR}
+      and pk_story = #{pkStory,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.CircleStory" >
+    insert into circle_story (pk_circle, pk_story, create_time, 
+      creator)
+    values (#{pkCircle,jdbcType=CHAR}, #{pkStory,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.CircleStory" >
+    insert into circle_story
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkCircle != null" >
+        pk_circle,
+      </if>
+      <if test="pkStory != null" >
+        pk_story,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkCircle != null" >
+        #{pkCircle,jdbcType=CHAR},
+      </if>
+      <if test="pkStory != null" >
+        #{pkStory,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.CircleStory" >
+    update circle_story
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+    </set>
+    where pk_circle = #{pkCircle,jdbcType=CHAR}
+      and pk_story = #{pkStory,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.CircleStory" >
+    update circle_story
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=CHAR}
+    where pk_circle = #{pkCircle,jdbcType=CHAR}
+      and pk_story = #{pkStory,jdbcType=CHAR}
+  </update>
+</mapper>

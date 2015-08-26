@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.UserCircleMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.UserCircle" >
+    <id column="pk_user" property="pkUser" jdbcType="CHAR" />
+    <id column="pk_circle" property="pkCircle" jdbcType="CHAR" />
+    <result column="role" property="role" jdbcType="CHAR" />
+    <result column="receive_info" property="receiveInfo" jdbcType="BIT" />
+    <result column="send_info" property="sendInfo" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_user, pk_circle, role, receive_info, send_info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.virtualspace.database.model.UserCircleKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_circle
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and pk_circle = #{pkCircle,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.virtualspace.database.model.UserCircleKey" >
+    delete from user_circle
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and pk_circle = #{pkCircle,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.UserCircle" >
+    insert into user_circle (pk_user, pk_circle, role, 
+      receive_info, send_info)
+    values (#{pkUser,jdbcType=CHAR}, #{pkCircle,jdbcType=CHAR}, #{role,jdbcType=CHAR}, 
+      #{receiveInfo,jdbcType=BIT}, #{sendInfo,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.UserCircle" >
+    insert into user_circle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkUser != null" >
+        pk_user,
+      </if>
+      <if test="pkCircle != null" >
+        pk_circle,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="receiveInfo != null" >
+        receive_info,
+      </if>
+      <if test="sendInfo != null" >
+        send_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkUser != null" >
+        #{pkUser,jdbcType=CHAR},
+      </if>
+      <if test="pkCircle != null" >
+        #{pkCircle,jdbcType=CHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=CHAR},
+      </if>
+      <if test="receiveInfo != null" >
+        #{receiveInfo,jdbcType=BIT},
+      </if>
+      <if test="sendInfo != null" >
+        #{sendInfo,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.UserCircle" >
+    update user_circle
+    <set >
+      <if test="role != null" >
+        role = #{role,jdbcType=CHAR},
+      </if>
+      <if test="receiveInfo != null" >
+        receive_info = #{receiveInfo,jdbcType=BIT},
+      </if>
+      <if test="sendInfo != null" >
+        send_info = #{sendInfo,jdbcType=BIT},
+      </if>
+    </set>
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and pk_circle = #{pkCircle,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.UserCircle" >
+    update user_circle
+    set role = #{role,jdbcType=CHAR},
+      receive_info = #{receiveInfo,jdbcType=BIT},
+      send_info = #{sendInfo,jdbcType=BIT}
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and pk_circle = #{pkCircle,jdbcType=CHAR}
+  </update>
+</mapper>

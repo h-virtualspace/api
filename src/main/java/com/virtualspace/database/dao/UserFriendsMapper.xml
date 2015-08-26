@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.UserFriendsMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.UserFriends" >
+    <id column="pk_user_src" property="pkUserSrc" jdbcType="CHAR" />
+    <id column="pk_user_target" property="pkUserTarget" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="is_vip" property="isVip" jdbcType="CHAR" />
+    <result column="is_blanklist" property="isBlanklist" jdbcType="CHAR" />
+    <result column="is_story_enable" property="isStoryEnable" jdbcType="CHAR" />
+    <result column="is_story_enabled" property="isStoryEnabled" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_user_src, pk_user_target, remarks, is_vip, is_blanklist, is_story_enable, is_story_enabled
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.virtualspace.database.model.UserFriendsKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_friends
+    where pk_user_src = #{pkUserSrc,jdbcType=CHAR}
+      and pk_user_target = #{pkUserTarget,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.virtualspace.database.model.UserFriendsKey" >
+    delete from user_friends
+    where pk_user_src = #{pkUserSrc,jdbcType=CHAR}
+      and pk_user_target = #{pkUserTarget,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.UserFriends" >
+    insert into user_friends (pk_user_src, pk_user_target, remarks, 
+      is_vip, is_blanklist, is_story_enable, 
+      is_story_enabled)
+    values (#{pkUserSrc,jdbcType=CHAR}, #{pkUserTarget,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{isVip,jdbcType=CHAR}, #{isBlanklist,jdbcType=CHAR}, #{isStoryEnable,jdbcType=CHAR}, 
+      #{isStoryEnabled,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.UserFriends" >
+    insert into user_friends
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkUserSrc != null" >
+        pk_user_src,
+      </if>
+      <if test="pkUserTarget != null" >
+        pk_user_target,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="isVip != null" >
+        is_vip,
+      </if>
+      <if test="isBlanklist != null" >
+        is_blanklist,
+      </if>
+      <if test="isStoryEnable != null" >
+        is_story_enable,
+      </if>
+      <if test="isStoryEnabled != null" >
+        is_story_enabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkUserSrc != null" >
+        #{pkUserSrc,jdbcType=CHAR},
+      </if>
+      <if test="pkUserTarget != null" >
+        #{pkUserTarget,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isVip != null" >
+        #{isVip,jdbcType=CHAR},
+      </if>
+      <if test="isBlanklist != null" >
+        #{isBlanklist,jdbcType=CHAR},
+      </if>
+      <if test="isStoryEnable != null" >
+        #{isStoryEnable,jdbcType=CHAR},
+      </if>
+      <if test="isStoryEnabled != null" >
+        #{isStoryEnabled,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.UserFriends" >
+    update user_friends
+    <set >
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isVip != null" >
+        is_vip = #{isVip,jdbcType=CHAR},
+      </if>
+      <if test="isBlanklist != null" >
+        is_blanklist = #{isBlanklist,jdbcType=CHAR},
+      </if>
+      <if test="isStoryEnable != null" >
+        is_story_enable = #{isStoryEnable,jdbcType=CHAR},
+      </if>
+      <if test="isStoryEnabled != null" >
+        is_story_enabled = #{isStoryEnabled,jdbcType=CHAR},
+      </if>
+    </set>
+    where pk_user_src = #{pkUserSrc,jdbcType=CHAR}
+      and pk_user_target = #{pkUserTarget,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.UserFriends" >
+    update user_friends
+    set remarks = #{remarks,jdbcType=VARCHAR},
+      is_vip = #{isVip,jdbcType=CHAR},
+      is_blanklist = #{isBlanklist,jdbcType=CHAR},
+      is_story_enable = #{isStoryEnable,jdbcType=CHAR},
+      is_story_enabled = #{isStoryEnabled,jdbcType=CHAR}
+    where pk_user_src = #{pkUserSrc,jdbcType=CHAR}
+      and pk_user_target = #{pkUserTarget,jdbcType=CHAR}
+  </update>
+</mapper>

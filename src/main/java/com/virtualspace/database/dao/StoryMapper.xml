@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.StoryMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.Story" >
+    <id column="pk" property="pk" jdbcType="CHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="validate_time" property="validateTime" jdbcType="INTEGER" />
+    <result column="visibility" property="visibility" jdbcType="CHAR" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_location" property="createLocation" jdbcType="CHAR" />
+    <result column="last_modify_location" property="lastModifyLocation" jdbcType="CHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk, type, tag, title, summary, validate_time, visibility, creator, create_time, create_location, 
+    last_modify_location, last_modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from story
+    where pk = #{pk,jdbcType=CHAR}
+  </select>
+  
+  <select id="selectStoriedByPks" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from story
+    where pk in
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>
+  </select>
+  
+  <select id="selectStoriedByVisiType" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from story
+    where visibility=#{visitype} and pk in
+    <foreach item="item" index="index" collection="pks" open="(" separator="," close=")">#{item}</foreach>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from story
+    where pk = #{pk,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.Story" >
+    insert into story (pk, type, tag, title, 
+      summary, validate_time, visibility, 
+      creator, create_time, create_location, 
+      last_modify_location, last_modify_time)
+    values (#{pk,jdbcType=CHAR}, #{type,jdbcType=CHAR}, #{tag,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{summary,jdbcType=VARCHAR}, #{validateTime,jdbcType=INTEGER}, #{visibility,jdbcType=CHAR}, 
+      #{creator,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createLocation,jdbcType=CHAR}, 
+      #{lastModifyLocation,jdbcType=CHAR}, #{lastModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.Story" >
+    insert into story
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        pk,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="validateTime != null" >
+        validate_time,
+      </if>
+      <if test="visibility != null" >
+        visibility,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createLocation != null" >
+        create_location,
+      </if>
+      <if test="lastModifyLocation != null" >
+        last_modify_location,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        #{pk,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="validateTime != null" >
+        #{validateTime,jdbcType=INTEGER},
+      </if>
+      <if test="visibility != null" >
+        #{visibility,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createLocation != null" >
+        #{createLocation,jdbcType=CHAR},
+      </if>
+      <if test="lastModifyLocation != null" >
+        #{lastModifyLocation,jdbcType=CHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.Story" >
+    update story
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="validateTime != null" >
+        validate_time = #{validateTime,jdbcType=INTEGER},
+      </if>
+      <if test="visibility != null" >
+        visibility = #{visibility,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createLocation != null" >
+        create_location = #{createLocation,jdbcType=CHAR},
+      </if>
+      <if test="lastModifyLocation != null" >
+        last_modify_location = #{lastModifyLocation,jdbcType=CHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pk = #{pk,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.Story" >
+    update story
+    set type = #{type,jdbcType=CHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      validate_time = #{validateTime,jdbcType=INTEGER},
+      visibility = #{visibility,jdbcType=CHAR},
+      creator = #{creator,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_location = #{createLocation,jdbcType=CHAR},
+      last_modify_location = #{lastModifyLocation,jdbcType=CHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where pk = #{pk,jdbcType=CHAR}
+  </update>
+</mapper>

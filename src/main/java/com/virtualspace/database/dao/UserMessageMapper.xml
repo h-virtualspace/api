@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.UserMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.UserMessage" >
+    <id column="pk_user_from" property="pkUserFrom" jdbcType="CHAR" />
+    <id column="pk_user_to" property="pkUserTo" jdbcType="CHAR" />
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="is_readed" property="isReaded" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.virtualspace.database.model.UserMessage" extends="BaseResultMap" >
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_user_from, pk_user_to, send_time, is_readed
+  </sql>
+  <sql id="Blob_Column_List" >
+    message
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="com.virtualspace.database.model.UserMessageKey" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_message
+    where pk_user_from = #{pkUserFrom,jdbcType=CHAR}
+      and pk_user_to = #{pkUserTo,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.virtualspace.database.model.UserMessageKey" >
+    delete from user_message
+    where pk_user_from = #{pkUserFrom,jdbcType=CHAR}
+      and pk_user_to = #{pkUserTo,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.UserMessage" >
+    insert into user_message (pk_user_from, pk_user_to, send_time, 
+      is_readed, message)
+    values (#{pkUserFrom,jdbcType=CHAR}, #{pkUserTo,jdbcType=CHAR}, #{sendTime,jdbcType=TIMESTAMP}, 
+      #{isReaded,jdbcType=BIT}, #{message,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.UserMessage" >
+    insert into user_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkUserFrom != null" >
+        pk_user_from,
+      </if>
+      <if test="pkUserTo != null" >
+        pk_user_to,
+      </if>
+      <if test="sendTime != null" >
+        send_time,
+      </if>
+      <if test="isReaded != null" >
+        is_readed,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkUserFrom != null" >
+        #{pkUserFrom,jdbcType=CHAR},
+      </if>
+      <if test="pkUserTo != null" >
+        #{pkUserTo,jdbcType=CHAR},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isReaded != null" >
+        #{isReaded,jdbcType=BIT},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.UserMessage" >
+    update user_message
+    <set >
+      <if test="sendTime != null" >
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isReaded != null" >
+        is_readed = #{isReaded,jdbcType=BIT},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pk_user_from = #{pkUserFrom,jdbcType=CHAR}
+      and pk_user_to = #{pkUserTo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.virtualspace.database.model.UserMessage" >
+    update user_message
+    set send_time = #{sendTime,jdbcType=TIMESTAMP},
+      is_readed = #{isReaded,jdbcType=BIT},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where pk_user_from = #{pkUserFrom,jdbcType=CHAR}
+      and pk_user_to = #{pkUserTo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.UserMessage" >
+    update user_message
+    set send_time = #{sendTime,jdbcType=TIMESTAMP},
+      is_readed = #{isReaded,jdbcType=BIT}
+    where pk_user_from = #{pkUserFrom,jdbcType=CHAR}
+      and pk_user_to = #{pkUserTo,jdbcType=CHAR}
+  </update>
+</mapper>

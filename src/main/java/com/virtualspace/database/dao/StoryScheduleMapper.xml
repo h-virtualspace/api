@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.StoryScheduleMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.StorySchedule" >
+    <id column="pk" property="pk" jdbcType="CHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="is_canceled" property="isCanceled" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk, start_time, end_time, content, is_canceled
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from story_schedule
+    where pk = #{pk,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from story_schedule
+    where pk = #{pk,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.StorySchedule" >
+    insert into story_schedule (pk, start_time, end_time, 
+      content, is_canceled)
+    values (#{pk,jdbcType=CHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=VARCHAR}, #{isCanceled,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.StorySchedule" >
+    insert into story_schedule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        pk,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="isCanceled != null" >
+        is_canceled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pk != null" >
+        #{pk,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isCanceled != null" >
+        #{isCanceled,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.StorySchedule" >
+    update story_schedule
+    <set >
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isCanceled != null" >
+        is_canceled = #{isCanceled,jdbcType=BIT},
+      </if>
+    </set>
+    where pk = #{pk,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.StorySchedule" >
+    update story_schedule
+    set start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR},
+      is_canceled = #{isCanceled,jdbcType=BIT}
+    where pk = #{pk,jdbcType=CHAR}
+  </update>
+</mapper>

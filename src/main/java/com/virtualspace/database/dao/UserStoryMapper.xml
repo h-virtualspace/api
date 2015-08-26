@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.virtualspace.database.dao.UserStoryMapper" >
+  <resultMap id="BaseResultMap" type="com.virtualspace.database.model.UserStory" >
+    <id column="pk_user" property="pkUser" jdbcType="CHAR" />
+    <id column="pk_story" property="pkStory" jdbcType="CHAR" />
+    <result column="is_hate" property="isHate" jdbcType="BIT" />
+    <result column="is_like" property="isLike" jdbcType="BIT" />
+    <result column="is_complaint" property="isComplaint" jdbcType="BIT" />
+    <result column="is_collect" property="isCollect" jdbcType="BIT" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_location" property="createLocation" jdbcType="CHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_user, pk_story, is_hate, is_like, is_complaint, is_collect, comment, create_time, 
+    create_location, last_modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.virtualspace.database.model.UserStoryKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_story
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and pk_story = #{pkStory,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.virtualspace.database.model.UserStoryKey" >
+    delete from user_story
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and pk_story = #{pkStory,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.virtualspace.database.model.UserStory" >
+    insert into user_story (pk_user, pk_story, is_hate, 
+      is_like, is_complaint, is_collect, 
+      comment, create_time, create_location, 
+      last_modify_time)
+    values (#{pkUser,jdbcType=CHAR}, #{pkStory,jdbcType=CHAR}, #{isHate,jdbcType=BIT}, 
+      #{isLike,jdbcType=BIT}, #{isComplaint,jdbcType=BIT}, #{isCollect,jdbcType=BIT}, 
+      #{comment,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createLocation,jdbcType=CHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.virtualspace.database.model.UserStory" >
+    insert into user_story
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkUser != null" >
+        pk_user,
+      </if>
+      <if test="pkStory != null" >
+        pk_story,
+      </if>
+      <if test="isHate != null" >
+        is_hate,
+      </if>
+      <if test="isLike != null" >
+        is_like,
+      </if>
+      <if test="isComplaint != null" >
+        is_complaint,
+      </if>
+      <if test="isCollect != null" >
+        is_collect,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createLocation != null" >
+        create_location,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkUser != null" >
+        #{pkUser,jdbcType=CHAR},
+      </if>
+      <if test="pkStory != null" >
+        #{pkStory,jdbcType=CHAR},
+      </if>
+      <if test="isHate != null" >
+        #{isHate,jdbcType=BIT},
+      </if>
+      <if test="isLike != null" >
+        #{isLike,jdbcType=BIT},
+      </if>
+      <if test="isComplaint != null" >
+        #{isComplaint,jdbcType=BIT},
+      </if>
+      <if test="isCollect != null" >
+        #{isCollect,jdbcType=BIT},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createLocation != null" >
+        #{createLocation,jdbcType=CHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.virtualspace.database.model.UserStory" >
+    update user_story
+    <set >
+      <if test="isHate != null" >
+        is_hate = #{isHate,jdbcType=BIT},
+      </if>
+      <if test="isLike != null" >
+        is_like = #{isLike,jdbcType=BIT},
+      </if>
+      <if test="isComplaint != null" >
+        is_complaint = #{isComplaint,jdbcType=BIT},
+      </if>
+      <if test="isCollect != null" >
+        is_collect = #{isCollect,jdbcType=BIT},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createLocation != null" >
+        create_location = #{createLocation,jdbcType=CHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and pk_story = #{pkStory,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.virtualspace.database.model.UserStory" >
+    update user_story
+    set is_hate = #{isHate,jdbcType=BIT},
+      is_like = #{isLike,jdbcType=BIT},
+      is_complaint = #{isComplaint,jdbcType=BIT},
+      is_collect = #{isCollect,jdbcType=BIT},
+      comment = #{comment,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_location = #{createLocation,jdbcType=CHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where pk_user = #{pkUser,jdbcType=CHAR}
+      and pk_story = #{pkStory,jdbcType=CHAR}
+  </update>
+</mapper>
